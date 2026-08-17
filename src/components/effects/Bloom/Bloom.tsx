@@ -4,23 +4,52 @@ import { useCurrentFrame } from "remotion";
 
 import { BloomProps } from "./Bloom.types";
 import { BloomStyles } from "./Bloom.styles";
+import { BloomAnimations } from "./Bloom.animations";
 
 export const Bloom: React.FC<BloomProps> = ({
-  opacity = 0.38,
-  blur = 120,
+  opacity = 0.35,
   intensity = 1,
-  color = "#FFF5D6",
   animated = true,
 }) => {
   const frame = useCurrentFrame();
 
   const pulse = animated
-    ? 1 + Math.sin(frame * 0.025) * 0.06
+    ? 1 +
+      Math.sin(
+        frame * BloomAnimations.pulse.speed
+      ) *
+        BloomAnimations.pulse.amount
+    : 1;
+
+  const breathing = animated
+    ? 1 +
+      Math.sin(
+        frame * BloomAnimations.breathing.speed
+      ) *
+        BloomAnimations.breathing.amount
     : 1;
 
   const flicker = animated
-    ? 0.98 + Math.sin(frame * 0.18) * 0.02
+    ? 1 +
+      Math.sin(
+        frame * BloomAnimations.flicker.speed
+      ) *
+        BloomAnimations.flicker.amount
     : 1;
+
+  const finalOpacity =
+    opacity *
+    intensity *
+    pulse *
+    breathing *
+    flicker;
+
+  const finalScale =
+    BloomAnimations.scale.base +
+    Math.sin(
+      frame * BloomAnimations.scale.speed
+    ) *
+      BloomAnimations.scale.amount;
 
   return (
     <div style={BloomStyles.container}>
@@ -28,19 +57,11 @@ export const Bloom: React.FC<BloomProps> = ({
         style={{
           ...BloomStyles.glow,
 
-          opacity: opacity * pulse * flicker,
+          opacity: finalOpacity,
 
-          filter: `blur(${blur}px)`,
+          transform: `scale(${finalScale})`,
 
-          transform: `scale(${1.25 * pulse})`,
-
-          background: `radial-gradient(
-            circle at center,
-            ${color}77 0%,
-            ${color}44 24%,
-            ${color}22 48%,
-            transparent 74%
-          )`,
+          willChange: "transform, opacity",
         }}
       />
     </div>

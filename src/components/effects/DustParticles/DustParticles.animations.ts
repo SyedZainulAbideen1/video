@@ -1,47 +1,66 @@
 /**
  * ============================================================
  * TerraVault Dust Particles Animation
+ * Cinematic Dust Controller v2.1
  * ============================================================
  *
- * Central animation configuration.
- * Future animation logic will read values from here.
+ * Centralized animation configuration for DustParticles.
+ *
+ * • Random Floating Motion
+ * • Slow Upward Drift
+ * • Horizontal Sway
+ * • Opacity Flicker
+ * • Depth Layers
+ * • Infinite Loop
  * ============================================================
  */
 
 export const DustParticlesAnimations = {
-  particles: {
-    count: 40,
+  // ------------------------------------------------------------
+  // VERTICAL DRIFT
+  // ------------------------------------------------------------
 
-    speed: 1,
+  drift: {
+    speed: 0.012,
 
-    baseOpacity: 0.22,
+    amplitude: 8,
 
-    baseSize: 5,
+    rise: 0.35,
   },
 
-  movement: {
-    upwardDistance: 260,
+  // ------------------------------------------------------------
+  // HORIZONTAL SWAY
+  // ------------------------------------------------------------
 
-    horizontalDrift: 35,
+  sway: {
+    speed: 0.018,
 
-    swaySpeed: 0.02,
+    amplitude: 14,
   },
 
-  twinkle: {
-    enabled: true,
+  // ------------------------------------------------------------
+  // OPACITY FLICKER
+  // ------------------------------------------------------------
 
-    speed: 0.04,
+  flicker: {
+    speed: 0.045,
 
-    intensity: 0.12,
+    amount: 0.18,
   },
+
+  // ------------------------------------------------------------
+  // DEPTH
+  // ------------------------------------------------------------
 
   depth: {
-    minScale: 0.5,
-
-    maxScale: 1.5,
+    range: 0.75,
   },
+
+  // ------------------------------------------------------------
+  // GLOBAL
+  // ------------------------------------------------------------
 
   global: {
     loop: true,
   },
-};
+} as const;

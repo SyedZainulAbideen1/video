@@ -4,26 +4,50 @@ import { useCurrentFrame } from "remotion";
 
 import { ChromaticAberrationProps } from "./ChromaticAberration.types";
 import { ChromaticAberrationStyles } from "./ChromaticAberration.styles";
+import { ChromaticAberrationAnimations } from "./ChromaticAberration.animations";
 
 export const ChromaticAberration: React.FC<
   ChromaticAberrationProps
 > = ({
-  intensity = 2,
-  opacity = 0.15,
+  intensity =
+    ChromaticAberrationAnimations.channels.intensity,
+
+  opacity =
+    ChromaticAberrationAnimations.channels.opacity,
+
   animated = true,
 }) => {
   const frame = useCurrentFrame();
 
-  const offset = animated
-    ? Math.sin(frame * 0.04) * intensity
-    : intensity;
+  const {
+    separation,
+    pulse,
+  } = ChromaticAberrationAnimations;
 
-  const pulse = animated
-    ? 0.95 + Math.sin(frame * 0.025) * 0.05
-    : 1;
+  const offset =
+    animated && separation.enabled
+      ? Math.sin(
+          frame * separation.speed
+        ) *
+        separation.distance *
+        intensity
+      : intensity;
+
+  const pulseValue =
+    animated && pulse.enabled
+      ? 1 +
+        Math.sin(
+          frame * pulse.speed
+        ) *
+        pulse.intensity
+      : 1;
 
   return (
-    <div style={ChromaticAberrationStyles.container}>
+    <div
+      style={
+        ChromaticAberrationStyles.container
+      }
+    >
       {/* Red Channel */}
       <div
         style={{
@@ -31,9 +55,11 @@ export const ChromaticAberration: React.FC<
 
           transform: `translateX(${-offset}px)`,
 
-          background: "rgba(255,0,0,1)",
+          background:
+            "rgba(255,0,0,1)",
 
-          opacity: opacity * pulse,
+          opacity:
+            opacity * pulseValue,
         }}
       />
 
@@ -42,9 +68,13 @@ export const ChromaticAberration: React.FC<
         style={{
           ...ChromaticAberrationStyles.greenChannel,
 
-          background: "rgba(0,255,0,0.5)",
+          background:
+            "rgba(0,255,0,0.5)",
 
-          opacity: opacity * 0.4 * pulse,
+          opacity:
+            opacity *
+            0.4 *
+            pulseValue,
         }}
       />
 
@@ -55,9 +85,11 @@ export const ChromaticAberration: React.FC<
 
           transform: `translateX(${offset}px)`,
 
-          background: "rgba(0,120,255,1)",
+          background:
+            "rgba(0,120,255,1)",
 
-          opacity: opacity * pulse,
+          opacity:
+            opacity * pulseValue,
         }}
       />
     </div>

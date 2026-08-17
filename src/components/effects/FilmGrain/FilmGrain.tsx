@@ -4,45 +4,61 @@ import { useCurrentFrame } from "remotion";
 
 import { FilmGrainProps } from "./FilmGrain.types";
 import { FilmGrainStyles } from "./FilmGrain.styles";
+import { FilmGrainAnimations } from "./FilmGrain.animations";
 
 export const FilmGrain: React.FC<FilmGrainProps> = ({
-  opacity = 0.10,
+  opacity = 0.08,
   intensity = 1,
   animated = true,
 }) => {
   const frame = useCurrentFrame();
 
+  const { movement, flicker } =
+    FilmGrainAnimations;
+
+  const time = animated ? frame : 0;
+
   const offsetX = animated
-    ? (frame * 2.8) % 20
+    ? (time * movement.speed) %
+      movement.tileSize
     : 0;
 
   const offsetY = animated
-    ? (frame * 1.7) % 20
+    ? (time * movement.speed * 0.7) %
+      movement.tileSize
     : 0;
 
-  const flicker = animated
-    ? 0.95 + Math.sin(frame * 0.55) * 0.05
-    : 1;
+  const grainOpacity = animated
+    ? opacity *
+      (1 +
+        Math.sin(
+          time * flicker.speed
+        ) *
+          flicker.amount)
+    : opacity;
 
   return (
-    <div style={FilmGrainStyles.container}>
+    <div
+      style={FilmGrainStyles.container}
+    >
       <div
         style={{
           ...FilmGrainStyles.grain,
 
-          opacity: opacity * flicker,
+          opacity: grainOpacity,
 
           backgroundSize: `
-            ${5 * intensity}px ${5 * intensity}px,
-            ${8 * intensity}px ${8 * intensity}px,
-            ${11 * intensity}px ${11 * intensity}px
+            ${6 * intensity}px ${6 * intensity}px,
+            ${8 * intensity}px ${8 * intensity}px
           `,
 
           backgroundPosition: `
             ${offsetX}px ${offsetY}px,
-            ${offsetX + 3}px ${offsetY + 3}px,
-            ${offsetX + 6}px ${offsetY + 6}px
+            ${offsetX + 3}px ${offsetY + 3}px
           `,
+
+          willChange:
+            "background-position, opacity",
         }}
       />
     </div>

@@ -1,86 +1,119 @@
 import React from "react";
 
-import {
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 
 import { DustParticlesProps } from "./DustParticles.types";
 import { DustParticlesStyles } from "./DustParticles.styles";
+import { DustParticlesAnimations } from "./DustParticles.animations";
 
 export const DustParticles: React.FC<DustParticlesProps> = ({
-  count = 40,
-  opacity = 0.22,
-  size = 5,
+  opacity = 0.18,
   speed = 1,
-  color = "#FFFFFF",
+  count = 24,
+  animated = true,
 }) => {
   const frame = useCurrentFrame();
-
   const { width, height } = useVideoConfig();
 
-  const particles = React.useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
-      x: (i * 97) % width,
-      y: (i * 61) % height,
-      offset: (i * 13) % 120,
+  const {
+    drift,
+    sway,
+    flicker,
+    depth,
+  } = DustParticlesAnimations;
 
-      scale: 0.5 + ((i * 17) % 100) / 100,
+  const particles = Array.from(
+    { length: count },
+    (_, index) => {
+      const seed = index * 37;
 
-      drift: 15 + ((i * 19) % 40),
+      const baseX =
+        ((seed * 17) % 100) / 100;
 
-      twinkle: 0.7 + ((i * 7) % 30) / 100,
-    }));
-  }, [count, width, height]);
+      const baseY =
+        ((seed * 29) % 100) / 100;
+
+      const depthFactor =
+        1 +
+        (((seed * 13) % 100) / 100) *
+          depth.range;
+
+      const time = animated
+        ? frame * speed
+        : 0;
+
+      const verticalDrift =
+        Math.sin(
+          time * drift.speed +
+            index
+        ) *
+          drift.amplitude +
+        time * drift.rise;
+
+      const horizontalSway =
+        Math.sin(
+          time * sway.speed +
+            index * 0.7
+        ) *
+        sway.amplitude;
+
+      const flickerValue = animated
+        ? 1 +
+          Math.sin(
+            time * flicker.speed +
+              index * 1.37
+          ) *
+            flicker.amount
+        : 1;
+
+      const x =
+        baseX * width +
+        horizontalSway;
+
+      const y =
+        baseY * height -
+        verticalDrift;
+
+      const size =
+        2 * depthFactor;
+
+      return {
+        x,
+        y,
+        size,
+        opacity:
+          opacity *
+          flickerValue *
+          depthFactor,
+      };
+    }
+  );
 
   return (
-    <div style={DustParticlesStyles.container}>
-      {particles.map((particle, index) => {
-        const progress =
-          ((frame * speed + particle.offset) % 300) / 300;
+    <div
+      style={DustParticlesStyles.container}
+    >
+      {particles.map((particle, index) => (
+        <div
+          key={index}
+          style={{
+            ...DustParticlesStyles.particle,
 
-        const y = interpolate(
-          progress,
-          [0, 1],
-          [particle.y + 120, particle.y - 140]
-        );
+            left: particle.x,
 
-        const x =
-          particle.x +
-          Math.sin(
-            (frame + particle.offset) * 0.02
-          ) *
-            particle.drift;
+            top: particle.y,
 
-        const twinkle =
-          particle.twinkle +
-          Math.sin(
-            (frame + particle.offset) * 0.04
-          ) *
-            0.12;
+            width: particle.size,
 
-        return (
-          <div
-            key={index}
-            style={{
-              ...DustParticlesStyles.particle,
+            height: particle.size,
 
-              left: x,
+            opacity: particle.opacity,
 
-              top: y,
-
-              width: size * particle.scale,
-
-              height: size * particle.scale,
-
-              background: color,
-
-              opacity: opacity * twinkle,
-            }}
-          />
-        );
-      })}
+            willChange:
+              "transform, opacity",
+          }}
+        />
+      ))}
     </div>
   );
 };

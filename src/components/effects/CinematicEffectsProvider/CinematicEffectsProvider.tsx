@@ -13,6 +13,7 @@ import { Vignette } from "../Vignette/Vignette";
 import { CinematicEffectsProviderProps } from "./CinematicEffectsProvider.types";
 import { CinematicEffectsProviderStyles } from "./CinematicEffectsProvider.styles";
 import { CinematicPresets } from "./CinematicEffectsProvider.presets";
+import { CinematicEffectsAnimations } from "./CinematicEffectsProvider.animations";
 
 export const CinematicEffectsProvider: React.FC<
   CinematicEffectsProviderProps
@@ -23,75 +24,100 @@ export const CinematicEffectsProvider: React.FC<
 
   enabled = true,
 
-  intensity = 1,
+  intensity,
 
   enableFog,
-
   enableDust,
-
   enableFilmGrain,
-
   enableBloom,
-
   enableLensFlare,
-
   enableLightRays,
-
   enableVignette,
-
   enableChromaticAberration,
-
   enableColorOverlay,
 }) => {
   const config = CinematicPresets[preset];
 
-  const fog = enabled && (enableFog ?? config.fog);
+  const global =
+    CinematicEffectsAnimations.global;
 
-  const dust = enabled && (enableDust ?? config.dust);
+  const masterEnabled =
+    enabled && global.enabled;
+
+  const masterIntensity = Math.max(
+    0,
+    Math.min(
+      intensity ?? config.intensity,
+      2
+    )
+  );
+
+  const masterOpacity =
+    global.opacity * masterIntensity;
+
+  const fog =
+    masterEnabled &&
+    (enableFog ?? config.fog);
+
+  const dust =
+    masterEnabled &&
+    (enableDust ?? config.dust);
 
   const filmGrain =
-    enabled && (enableFilmGrain ?? config.filmGrain);
+    masterEnabled &&
+    (enableFilmGrain ?? config.filmGrain);
 
   const bloom =
-    enabled && (enableBloom ?? config.bloom);
+    masterEnabled &&
+    (enableBloom ?? config.bloom);
 
   const lensFlare =
-    enabled && (enableLensFlare ?? config.lensFlare);
+    masterEnabled &&
+    (enableLensFlare ?? config.lensFlare);
 
   const lightRays =
-    enabled && (enableLightRays ?? config.lightRays);
+    masterEnabled &&
+    (enableLightRays ?? config.lightRays);
 
   const vignette =
-    enabled && (enableVignette ?? config.vignette);
+    masterEnabled &&
+    (enableVignette ?? config.vignette);
 
   const chromaticAberration =
-    enabled &&
+    masterEnabled &&
     (enableChromaticAberration ??
       config.chromaticAberration);
 
   const colorOverlay =
-    enabled &&
-    (enableColorOverlay ?? config.colorOverlay);
+    masterEnabled &&
+    (enableColorOverlay ??
+      config.colorOverlay);
 
   const overlayOpacity =
-    Math.max(0, Math.min(intensity, 2)) * 0.15;
+    masterIntensity * 0.15;
 
   return (
     <div
-      style={CinematicEffectsProviderStyles.container}
+      style={
+        CinematicEffectsProviderStyles.container
+      }
     >
       {/* Main Content */}
       <div
-        style={CinematicEffectsProviderStyles.content}
+        style={
+          CinematicEffectsProviderStyles.content
+        }
       >
         {children}
       </div>
 
       {/* Atmosphere */}
       <div
-        style={
-          CinematicEffectsProviderStyles.atmosphereLayer
-        }
+        style={{
+          ...CinematicEffectsProviderStyles.atmosphereLayer,
+
+          opacity: masterOpacity,
+        }}
       >
         {fog && <AtmosphericFog />}
 
@@ -100,9 +126,11 @@ export const CinematicEffectsProvider: React.FC<
 
       {/* Lighting */}
       <div
-        style={
-          CinematicEffectsProviderStyles.lightingLayer
-        }
+        style={{
+          ...CinematicEffectsProviderStyles.lightingLayer,
+
+          opacity: masterOpacity,
+        }}
       >
         {lightRays && <LightRays />}
 
@@ -113,9 +141,11 @@ export const CinematicEffectsProvider: React.FC<
 
       {/* Post Processing */}
       <div
-        style={
-          CinematicEffectsProviderStyles.postProcessingLayer
-        }
+        style={{
+          ...CinematicEffectsProviderStyles.postProcessingLayer,
+
+          opacity: masterOpacity,
+        }}
       >
         {filmGrain && <FilmGrain />}
 
@@ -126,9 +156,13 @@ export const CinematicEffectsProvider: React.FC<
 
       {/* Final Overlay */}
       <div
-        style={
-          CinematicEffectsProviderStyles.overlayLayer
-        }
+        style={{
+          ...CinematicEffectsProviderStyles.overlayLayer,
+
+          opacity: masterEnabled
+            ? 1
+            : 0,
+        }}
       >
         {colorOverlay && (
           <ColorOverlay

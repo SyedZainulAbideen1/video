@@ -1,46 +1,80 @@
 /**
  * ============================================================
  * TerraVault Atmospheric Fog Animation
+ * Cinematic Atmosphere Controller v2.1
  * ============================================================
  *
- * Central animation configuration.
- * Future animation logic will read values from here.
+ * Centralized animation configuration for AtmosphericFog.
+ *
+ * • Multi-Layer Drift
+ * • Independent Layer Speed
+ * • Horizontal / Vertical Movement
+ * • Density Control
+ * • Breathing
+ * • Infinite Loop
  * ============================================================
  */
 
 export const AtmosphericFogAnimations = {
+  // ------------------------------------------------------------
+  // FOG LAYERS
+  // ------------------------------------------------------------
+
   layer1: {
-    speed: 1.0,
-    opacity: 0.24,
-    blur: 120,
-    amplitudeX: 450,
-    amplitudeY: 40,
+    speed: 0.35,
+
+    amplitudeX: 180,
+
+    amplitudeY: 24,
+
+    opacity: 0.55,
+
+    blur: 140,
   },
 
   layer2: {
-    speed: 0.75,
-    opacity: 0.18,
-    blur: 150,
-    amplitudeX: 520,
-    amplitudeY: 55,
+    speed: 0.22,
+
+    amplitudeX: 240,
+
+    amplitudeY: 32,
+
+    opacity: 0.38,
+
+    blur: 180,
   },
 
   layer3: {
-    speed: 1.2,
-    opacity: 0.16,
-    blur: 105,
-    amplitudeX: 350,
-    amplitudeY: 28,
+    speed: 0.14,
+
+    amplitudeX: 320,
+
+    amplitudeY: 42,
+
+    opacity: 0.25,
+
+    blur: 220,
   },
+
+  // ------------------------------------------------------------
+  // BREATHING
+  // ------------------------------------------------------------
 
   breathing: {
     enabled: true,
-    speed: 0.015,
+
+    speed: 0.018,
+
     intensity: 0.08,
   },
 
+  // ------------------------------------------------------------
+  // GLOBAL
+  // ------------------------------------------------------------
+
   global: {
-    loop: true,
     density: 1,
+
+    loop: true,
   },
-};
+} as const;

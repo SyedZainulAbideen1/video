@@ -1,47 +1,38 @@
 /**
  * ============================================================
  * TerraVault Film Grain Animation
- * ============================================================
- *
- * Central animation configuration.
- * Future animation logic will read values from here.
+ * Cinematic Grain Controller v2.1
  * ============================================================
  */
 
 export const FilmGrainAnimations = {
-  grain: {
-    opacity: 0.10,
-
-    intensity: 1,
-
-    animated: true,
-  },
+  // ------------------------------------------------------------
+  // GRAIN MOVEMENT
+  // ------------------------------------------------------------
 
   movement: {
-    speedX: 2.8,
+    speed: 3,
 
-    speedY: 1.7,
-
-    loopLength: 20,
+    tileSize: 12,
   },
+
+  // ------------------------------------------------------------
+  // OPACITY FLICKER
+  // ------------------------------------------------------------
 
   flicker: {
-    enabled: true,
+    speed: 0.085,
 
-    speed: 0.55,
-
-    intensity: 0.05,
+    amount: 0.08,
   },
 
-  texture: {
-    layer1: 5,
-
-    layer2: 8,
-
-    layer3: 11,
-  },
+  // ------------------------------------------------------------
+  // GLOBAL
+  // ------------------------------------------------------------
 
   global: {
     loop: true,
+
+    intensity: 1,
   },
-};
+} as const;

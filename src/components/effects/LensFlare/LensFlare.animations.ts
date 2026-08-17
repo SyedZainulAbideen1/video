@@ -1,49 +1,58 @@
 /**
  * ============================================================
  * TerraVault Lens Flare Animation
+ * Cinematic Lens Controller v2.1
  * ============================================================
  *
- * Central animation configuration.
- * Future animation logic will read values from here.
+ * Centralized animation configuration for LensFlare.
+ *
+ * • Horizontal Travel
+ * • Fade In / Fade Out
+ * • Light Streak
+ * • Cinematic Timing
  * ============================================================
  */
 
 export const LensFlareAnimations = {
-  glow: {
-    opacity: 0.22,
+  // ------------------------------------------------------------
+  // MOVEMENT
+  // ------------------------------------------------------------
 
-    scale: 1,
+  movement: {
+    startOffset: 220,
 
-    blur: 40,
+    endOffset: 220,
   },
 
-  sweep: {
-    enabled: true,
+  // ------------------------------------------------------------
+  // FADE
+  // ------------------------------------------------------------
 
-    speed: 6,
+  fade: {
+    start: 0,
 
-    startX: -300,
+    full: 0.15,
 
-    endX: 1500,
+    end: 0.85,
+
+    finish: 1,
   },
 
-  pulse: {
-    enabled: true,
+  // ------------------------------------------------------------
+  // STREAK
+  // ------------------------------------------------------------
 
-    speed: 0.025,
+  streak: {
+    offsetX: 150,
 
-    intensity: 0.08,
+    defaultAngle: 18,
   },
 
-  rotation: {
-    enabled: true,
-
-    speed: 0.01,
-
-    maxAngle: 2,
-  },
+  // ------------------------------------------------------------
+  // GLOBAL
+  // ------------------------------------------------------------
 
   global: {
-    loop: true,
+    loop: false,
   },
-};
+} as const;

@@ -1,55 +1,89 @@
 import React from "react";
-import { useCurrentFrame } from "remotion";
+
+import {
+  interpolate,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 
 import { LensFlareProps } from "./LensFlare.types";
 import { LensFlareStyles } from "./LensFlare.styles";
 
 export const LensFlare: React.FC<LensFlareProps> = ({
-  opacity = 0.22,
-  size = 1,
-  duration = 300,
-  angle = 0,
+  opacity = 0.18,
+  size = 220,
+  duration,
+  angle = 18,
 }) => {
   const frame = useCurrentFrame();
 
-  const progress = (frame % duration) / duration;
+  const {
+    width,
+    height,
+    durationInFrames,
+  } = useVideoConfig();
 
-  const sweep = progress * 1800 - 300;
+  const totalFrames =
+    duration ?? durationInFrames;
 
-  const pulse =
-    1 + Math.sin(frame * 0.025) * 0.08;
+  const progress = interpolate(
+    frame,
+    [0, totalFrames],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+
+  const x = interpolate(
+    progress,
+    [0, 1],
+    [-size, width + size]
+  );
+
+  const y = height * 0.35;
+
+  const fade = interpolate(
+    progress,
+    [0, 0.15, 0.85, 1],
+    [0, opacity, opacity, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
 
   return (
-    <div style={LensFlareStyles.container}>
+    <div
+      style={LensFlareStyles.container}
+    >
+      {/* Glow */}
       <div
         style={{
           ...LensFlareStyles.glow,
 
-          left: sweep,
+          width: size,
+          height: size,
 
-          top: 120,
+          left: x,
+          top: y - size / 2,
 
-          opacity: opacity * pulse,
-
-          transform: `
-            translate(-50%, -50%)
-            scale(${size * pulse})
-            rotate(${angle}deg)
-          `,
+          opacity: fade,
         }}
       />
 
+      {/* Light Streak */}
       <div
         style={{
           ...LensFlareStyles.streak,
 
-          left: sweep - 180,
+          left: x - 150,
+          top: y,
 
-          top: 120,
+          opacity: fade,
 
-          opacity: opacity * 2,
-
-          transform: `rotate(${angle}deg) scale(${size})`,
+          transform: `rotate(${angle}deg)`,
         }}
       />
     </div>

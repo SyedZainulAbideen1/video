@@ -4,25 +4,41 @@ import { useCurrentFrame } from "remotion";
 
 import { ColorOverlayProps } from "./ColorOverlay.types";
 import { ColorOverlayStyles } from "./ColorOverlay.styles";
+import { ColorOverlayAnimations } from "./ColorOverlay.animations";
 
 export const ColorOverlay: React.FC<ColorOverlayProps> = ({
-  color = "#3B82F6",
-  opacity = 0.15,
+  color = ColorOverlayAnimations.overlay.color,
+  opacity = ColorOverlayAnimations.overlay.opacity,
   blendMode = "overlay",
   animated = false,
 }) => {
   const frame = useCurrentFrame();
 
-  const pulse = animated
-    ? 0.92 + Math.sin(frame * 0.03) * 0.08
-    : 1;
+  const pulse =
+    animated && ColorOverlayAnimations.pulse.enabled
+      ? 1 -
+        ColorOverlayAnimations.pulse.intensity +
+        Math.sin(
+          frame *
+            ColorOverlayAnimations.pulse.speed
+        ) *
+          ColorOverlayAnimations.pulse.intensity
+      : 1;
 
-  const hueShift = animated
-    ? Math.sin(frame * 0.01) * 6
-    : 0;
+  const hueShift =
+    animated &&
+    ColorOverlayAnimations.colorShift.enabled
+      ? Math.sin(
+          frame *
+            ColorOverlayAnimations.colorShift.speed
+        ) *
+        ColorOverlayAnimations.colorShift.hueRange
+      : 0;
 
   return (
-    <div style={ColorOverlayStyles.container}>
+    <div
+      style={ColorOverlayStyles.container}
+    >
       <div
         style={{
           ...ColorOverlayStyles.overlay,

@@ -1,45 +1,58 @@
 /**
  * ============================================================
  * TerraVault Bloom Animation
+ * Cinematic Bloom Controller v2.1
  * ============================================================
  *
- * Central animation configuration.
- * Future animation logic will read values from here.
+ * Centralized animation configuration for Bloom.
+ *
+ * • Soft Pulse
+ * • Cinematic Breathing
+ * • Subtle Flicker
+ * • Scale Variation
  * ============================================================
  */
 
 export const BloomAnimations = {
-  glow: {
-    opacity: 0.38,
-
-    blur: 120,
-
-    intensity: 1,
-
-    scale: 1.25,
-  },
+  // ------------------------------------------------------------
+  // PULSE
+  // ------------------------------------------------------------
 
   pulse: {
-    enabled: true,
+    speed: 0.035,
 
-    speed: 0.025,
-
-    intensity: 0.06,
+    amount: 0.08,
   },
+
+  // ------------------------------------------------------------
+  // BREATHING
+  // ------------------------------------------------------------
+
+  breathing: {
+    speed: 0.012,
+
+    amount: 0.06,
+  },
+
+  // ------------------------------------------------------------
+  // FLICKER
+  // ------------------------------------------------------------
 
   flicker: {
-    enabled: true,
+    speed: 0.071,
 
-    speed: 0.18,
-
-    intensity: 0.02,
+    amount: 0.025,
   },
 
-  color: {
-    temperature: "#FFF5D6",
-  },
+  // ------------------------------------------------------------
+  // SCALE
+  // ------------------------------------------------------------
 
-  global: {
-    loop: true,
+  scale: {
+    base: 1,
+
+    speed: 0.018,
+
+    amount: 0.025,
   },
-};
+} as const;

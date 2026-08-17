@@ -8,4 +8,6 @@ export interface DustParticlesProps {
   speed?: number;
 
   color?: string;
+  
+  animated?: boolean;
 }
