@@ -1,0 +1,222 @@
+Folder PATH listing
+Volume serial number is 90A6-19D8
+C:\USERS\SS COMPUTER\TERRAVAULT-MOTIONGRAPHICS\SRC
+|   index.css
+|   index.ts
+|   Overlay.tsx
+|   Root.tsx
+|   
++---components
+|   |   TVPanel.tsx
+|   |   
+|   +---AnimatedPanel
+|   |       AnimatedPanel.tsx
+|   |       
+|   +---Animations
+|   |       Fade.tsx
+|   |       index.ts
+|   |       Scale.tsx
+|   |       Slide.tsx
+|   |       
+|   +---ChapterTitle
+|   |       ChapterTitle.styles.ts
+|   |       ChapterTitle.tsx
+|   |       ChapterTitle.types.ts
+|   |       
+|   +---ComparisonCard
+|   |       ComparisonCard.animations.ts
+|   |       ComparisonCard.styles.ts
+|   |       ComparisonCard.tsx
+|   |       ComparisonCard.types.ts
+|   |       
+|   +---CreditsCard
+|   |       CreditsCard.animations.ts
+|   |       CreditsCard.styles.ts
+|   |       CreditsCard.tsx
+|   |       CreditsCard.types.ts
+|   |       
+|   +---Divider
+|   |       Divider.styles.ts
+|   |       Divider.tsx
+|   |       Divider.types.ts
+|   |       
+|   +---effects
+|   |   +---AtmosphericFog
+|   |   |       AtmosphericFog.animations.ts
+|   |   |       AtmosphericFog.styles.ts
+|   |   |       AtmosphericFog.tsx
+|   |   |       AtmosphericFog.types.ts
+|   |   |       
+|   |   +---Bloom
+|   |   |       Bloom.animations.ts
+|   |   |       Bloom.styles.ts
+|   |   |       Bloom.tsx
+|   |   |       Bloom.types.ts
+|   |   |       
+|   |   +---ChromaticAberration
+|   |   |       ChromaticAberration.animations.ts
+|   |   |       ChromaticAberration.styles.ts
+|   |   |       ChromaticAberration.tsx
+|   |   |       ChromaticAberration.types.ts
+|   |   |       
+|   |   +---CinematicEffectsProvider
+|   |   |       CinematicEffectsProvider.animations.ts
+|   |   |       CinematicEffectsProvider.presets.ts
+|   |   |       CinematicEffectsProvider.styles.ts
+|   |   |       CinematicEffectsProvider.tsx
+|   |   |       CinematicEffectsProvider.types.ts
+|   |   |       index.ts
+|   |   |       
+|   |   +---ColorOverlay
+|   |   |       ColorOverlay.animations.ts
+|   |   |       ColorOverlay.styles.ts
+|   |   |       ColorOverlay.tsx
+|   |   |       ColorOverlay.types.ts
+|   |   |       
+|   |   +---DustParticles
+|   |   |       DustParticles.animations.ts
+|   |   |       DustParticles.styles.ts
+|   |   |       DustParticles.tsx
+|   |   |       DustParticles.types.ts
+|   |   |       
+|   |   +---FilmGrain
+|   |   |       FilmGrain.animations.ts
+|   |   |       FilmGrain.styles.ts
+|   |   |       FilmGrain.tsx
+|   |   |       FilmGrain.types.ts
+|   |   |       
+|   |   +---LensFlare
+|   |   |       LensFlare.animations.ts
+|   |   |       LensFlare.styles.ts
+|   |   |       LensFlare.tsx
+|   |   |       LensFlare.types.ts
+|   |   |       
+|   |   +---LightRays
+|   |   |       LightRays.animations.ts
+|   |   |       LightRays.styles.ts
+|   |   |       LightRays.tsx
+|   |   |       LightRays.types.ts
+|   |   |       
+|   |   \---Vignette
+|   |           Vignette.animations.ts
+|   |           Vignette.styles.ts
+|   |           Vignette.tsx
+|   |           Vignette.types.ts
+|   |           
+|   +---EventCard
+|   |       EventCard.animations.ts
+|   |       EventCard.styles.ts
+|   |       EventCard.tsx
+|   |       EventCard.types.ts
+|   |       
+|   +---FactCard
+|   |       FactCard.animations.ts
+|   |       FactCard.styles.ts
+|   |       FactCard.tsx
+|   |       FactCard.types.ts
+|   |       
+|   +---Glow
+|   |       Glow.styles.ts
+|   |       Glow.tsx
+|   |       Glow.types.ts
+|   |       
+|   +---LightSweep
+|   |       LightSweep.styles.ts
+|   |       LightSweep.tsx
+|   |       LightSweep.types.ts
+|   |       
+|   +---LocationCard
+|   |       LocationCard.animations.ts
+|   |       LocationCard.styles.ts
+|   |       LocationCard.tsx
+|   |       LocationCard.types.ts
+|   |       
+|   +---LowerThird
+|   |       LowerThird.styles.ts
+|   |       LowerThird.tsx
+|   |       LowerThird.types.ts
+|   |       
+|   +---MapCalloutCard
+|   |       MapCalloutCard.animations.ts
+|   |       MapCalloutCard.styles.ts
+|   |       MapCalloutCard.tsx
+|   |       MapCalloutCard.types.ts
+|   |       
+|   +---MemorialCard
+|   |       MemorialCard.animations.ts
+|   |       MemorialCard.styles.ts
+|   |       MemorialCard.tsx
+|   |       MemorialCard.types.ts
+|   |       
+|   +---Noise
+|   |       Noise.styles.ts
+|   |       Noise.tsx
+|   |       Noise.types.ts
+|   |       
+|   +---PersonProfileCard
+|   |       PersonProfileCard.animations.ts
+|   |       PersonProfileCard.styles.ts
+|   |       PersonProfileCard.tsx
+|   |       PersonProfileCard.types.ts
+|   |       
+|   +---QuoteCard
+|   |       QuoteCard.styles.ts
+|   |       QuoteCard.tsx
+|   |       QuoteCard.types.ts
+|   |       
+|   +---StatisticsCard
+|   |       StatisticsCard.animations.ts
+|   |       StatisticsCard.styles.ts
+|   |       StatisticsCard.tsx
+|   |       StatisticsCard.types.ts
+|   |       
+|   +---TextReveal
+|   |       TextReveal.styles.ts
+|   |       TextReveal.tsx
+|   |       TextReveal.types.ts
+|   |       
+|   \---TimelineCard
+|           TimelineCard.animations.ts
+|           TimelineCard.styles.ts
+|           TimelineCard.tsx
+|           TimelineCard.types.ts
+|           
++---compositions
+|       AtmosphericFogComposition.tsx
+|       BloomComposition.tsx
+|       ChapterTitleComposition.tsx
+|       ChromaticAberrationComposition.tsx
+|       CinematicEffectsProviderComposition.tsx
+|       ColorOverlayComposition.tsx
+|       ComparisonCardComposition.tsx
+|       CreditsCardComposition.tsx
+|       DustParticlesComposition.tsx
+|       EventCardComposition.tsx
+|       FactCardComposition.tsx
+|       FilmGrainComposition.tsx
+|       LensFlareComposition.tsx
+|       LightRaysComposition.tsx
+|       LocationCardComposition.tsx
+|       LowerThirdComposition.tsx
+|       MapCalloutCardComposition.tsx
+|       MemorialCardComposition.tsx
+|       PersonProfileCardComposition.tsx
+|       QuoteCardComposition.tsx
+|       StatisticsCardComposition.tsx
+|       TimelineCardComposition.tsx
+|       VignetteComposition.tsx
+|       
++---history
+|       LocationCard.v1.tsx
+|       
++---motion
+|       sequence.ts
+|       timings.ts
+|       useExit.ts
+|       useMotion.ts
+|       
++---styles
++---theme
+|       theme.ts
+|       
+\---utils
