@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { AbsoluteFill, interpolate } from "remotion";
+
 import { useMotion } from "../../motion/useMotion";
 import { useExit } from "../../motion/useExit";
 import { Motion } from "../../motion/timings";
@@ -33,9 +34,13 @@ export const AnimatedPanel: React.FC<AnimatedPanelProps> = ({
   const translateX = enter.translateX + exit.translateX;
   const translateY = enter.translateY;
 
-  const scale = interpolate(exit.progress, [0, 1], [enter.scale, exit.scale]);
+  const scale = interpolate(
+    exit.progress,
+    [0, 1],
+    [enter.scale, Motion.exitScale],
+  );
 
-  // Soft cinematic overshoot
+  // Soft cinematic overshoot during panel entrance.
   const finalScale = interpolate(
     enter.progress,
     [0, 0.85, 1],

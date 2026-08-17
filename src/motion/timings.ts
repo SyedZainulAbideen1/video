@@ -1,7 +1,7 @@
 /**
  * ============================================================
  * TerraVault Motion Graphics Engine
- * Motion Timing System v2.0
+ * Motion Timing System v2.1
  * ============================================================
  */
 
@@ -10,11 +10,11 @@ export const Motion = {
   // MASTER TIMINGS
   // ------------------------------------------------------------
 
-  enterDuration: 22,
+  enterDuration: 24,
 
   holdDuration: 110,
 
-  exitDuration: 18,
+  exitDuration: 24,
 
   // ------------------------------------------------------------
   // STAGGER
@@ -68,7 +68,9 @@ export const Motion = {
 
   spring: {
     damping: 16,
+
     stiffness: 115,
+
     mass: 0.9,
   },
-};
+} as const;
